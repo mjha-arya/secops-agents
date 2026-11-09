@@ -1,0 +1,17 @@
+# DSPM connector configuration. Endpoints and scope only - credentials never live in this repo.
+# The only connector in v1 is Databricks (blueprint: Databricks-first, store-agnostic design).
+
+databricks:
+  managedMcp:
+    # Databricks managed MCP server: Unity Catalog functions, Genie, AI Search. Tool calls
+    # inherit the caller's Unity Catalog permissions, so there is no ACL layer to build here.
+    # AgentDaya's runner attaches this server only when both environment variables are set.
+    urlEnv: DATABRICKS_MCP_URL        # e.g. https://adb-<id>.<n>.azuredatabricks.net/api/2.0/mcp/functions/<catalog>/<schema>
+    tokenEnv: DATABRICKS_MCP_TOKEN    # OAuth on-behalf-of token or SP token; provisioning is needs_human
+    workspace: null                   # fill from controlTool\registry\workspaceInventory.yaml once ids are real
+    scope: non-prod                   # phase 1 gate - one non-prod workspace before anything else
+  systemTables:
+    # Read via a SQL warehouse; the control tool's unityCatalogCollector is the reference implementation.
+    httpPathEnv: DATABRICKS_SQL_HTTP_PATH
+    tables: [system.access.audit, system.access.table_lineage, system.information_schema.tables,
+             system.information_schema.columns, system.information_schema.table_privileges]

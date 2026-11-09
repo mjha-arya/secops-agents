@@ -1,0 +1,4 @@
+claude-agent-sdk
+pyyaml
+httpx>=0.27
+requests>=2.31   # the control tool's HttpBackend tests import it

@@ -1,0 +1,32 @@
+# --- secrets: never commit -------------------------------------------------
+.env
+.env.*
+*.pem
+*.pfx
+*.key
+
+# --- per-session audit trails (transcripts + tool-call logs) ----------------
+# Each agent's runs/ holds prompts, model output and every API/ctl.py call made
+# in a session. Sensitive by nature and per-machine; kept locally, not shared.
+runs/
+**/runs/
+*.jsonl
+
+# --- DSPM local stores (inventory, graph, evidence) - per-machine, may hold real data ---
+*.db
+*.sqlite
+*.sqlite3
+
+# --- python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# --- editors / OS -----------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,5 @@
+mcp>=2,<3
+mcp-types>=2,<3
+claude-agent-sdk
+pyyaml
+requests>=2.31   # the control tool's HttpBackend tests import it
